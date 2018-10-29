@@ -1,0 +1,72 @@
+# English translations for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-10-29 17:10-0300\n"
+"PO-Revision-Date: 2018-10-29 17:13-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: softdes.py:45
+msgid "Nome da função inválido. Usar 'def desafio{0}(...)'"
+msgstr "Name of the function invalid.Use 'def desafio{)}(...)'"
+
+#: softdes.py:50
+msgid " "
+msgstr ""
+
+#: softdes.py:52
+msgid "Função inválida."
+msgstr "invalid function"
+
+#: softdes.py:133
+msgid "Boa tentativa, mas não vai dar certo!"
+msgstr "Good shot, but it won't work"
+
+#: softdes.py:140
+msgid "Sorry... Prazo expirado!"
+msgstr "Sorry... expired term"
+
+#: softdes.py:157
+msgid "Erro"
+msgstr "Error"
+
+#: softdes.py:159
+msgid "Sem erros."
+msgstr "No errors"
+
+#: softdes.py:172
+msgid "Ainda não há desafios! Volte mais tarde."
+msgstr "There is no challenge yet! Come back later"
+
+#: softdes.py:179
+msgid "Oops... Desafio invalido!"
+msgstr "Oops... Invalid Challenge"
+
+#: softdes.py:198
+msgid "As novas senhas nao batem"
+msgstr "The new passwords don't match"
+
+#: softdes.py:201
+msgid "A senha antiga nao confere"
+msgstr "The old password doesn't match"
+
+#: softdes.py:205
+msgid "Senha alterada com sucesso"
+msgstr "password succesfully changed"
+
+#: softdes.py:216
+msgid "Logout com sucesso"
+msgstr "Logout success"
+
