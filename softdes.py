@@ -21,11 +21,13 @@ babel = Babel(app)
 DBNAME = './quiz.db'
 
 def lambda_handler(event, context):
+    """Função usada para checar se a função é válida."""
     try:
         import json 
         import numbers
         
         def not_equals(first, second):
+            """Checa se o resultado das funções não são iguais."""
             if isinstance(first, numbers.Number) and isinstance(second, numbers.Number):
                 return abs(first - second) > 1e-3
             return first != second
@@ -52,9 +54,11 @@ def lambda_handler(event, context):
         return _("Função inválida.")
 
 def converteData(orig):
+    """Coverte a data de AA/MM/DD para DD/MM/AA."""
     return orig[8:10]+'/'+orig[5:7]+'/'+orig[0:4]+' '+orig[11:13]+':'+orig[14:16]+':'+orig[17:]
 
 def getQuizes(user):
+    """Cria uma conexão com o banco de dados quiz.db e recupera os desafios do banco."""
     conn = sqlite3.connect(DBNAME)
     cursor = conn.cursor()
     if user == 'admin' or user == 'fabioja':
@@ -66,6 +70,7 @@ def getQuizes(user):
     return info
 
 def getUserQuiz(userid, quizid):
+    """Cria uma conexão com o banco de dados quiz.db e recupera os desafios respondidos pelo usuário."""
     conn = sqlite3.connect(DBNAME)
     cursor = conn.cursor()
     cursor.execute("SELECT sent,answer,result from USERQUIZ where userid = '{0}' and quizid = {1} order by sent desc".format(userid, quizid))
@@ -74,6 +79,7 @@ def getUserQuiz(userid, quizid):
     return info
 
 def setUserQuiz(userid, quizid, sent, answer, result):
+    """Cria uma conexão com o banco de dados quiz.db e coloca no banco de dados o quiz que foi respondido pelo usuário."""
     conn = sqlite3.connect(DBNAME)
     cursor = conn.cursor()
     #print("insert into USERQUIZ(userid,quizid,sent,answer,result) values ('{0}',{1},'{2}','{3}','{4}');".format(userid, quizid, sent, answer, result))
@@ -84,6 +90,7 @@ def setUserQuiz(userid, quizid, sent, answer, result):
     conn.close()
 
 def getQuiz(id, user):
+    """Cria uma conexão com o banco de dados quiz.db e recupera um determinado quiz e suas informações."""
     conn = sqlite3.connect(DBNAME)
     cursor = conn.cursor()
     if user == 'admin' or user == 'fabioja':
@@ -95,6 +102,7 @@ def getQuiz(id, user):
     return info
 
 def setInfo(pwd, user):
+    """Cria uma conexão com o banco de dados quiz.db e define as informações do usuário como senha e nome do usuário."""
     conn = sqlite3.connect(DBNAME)
     cursor = conn.cursor()
     cursor.execute("UPDATE USER set pass = ? where user = ?",(pwd, user))
@@ -102,6 +110,7 @@ def setInfo(pwd, user):
     conn.close()
 
 def getInfo(user):
+    """Cria uma conexão com o banco de dados quiz.db e recupera as informações do usuário como senha e nome do usuário."""
     conn = sqlite3.connect(DBNAME)
     cursor = conn.cursor()
     cursor.execute("SELECT pass, type from USER where user = '{0}'".format(user))
@@ -121,6 +130,7 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?TX'
 @app.route('/', methods=['GET', 'POST'])
 @auth.login_required
 def main():
+    """Função principal, na qual checa as respostas dos usuários com as respostas corretas, checa se há quiz para ser respondido e também faz a comunicação REST com o servidor web"""
     msg = ''
     p = 1
     challenges=getQuizes(auth.username())
@@ -187,6 +197,7 @@ def main():
 @app.route('/pass', methods=['GET', 'POST'])
 @auth.login_required
 def change():
+    """Função para trocar de senha"""
     if request.method == 'POST':
         velha = request.form['old']
         nova = request.form['new']
@@ -213,14 +224,17 @@ def change():
 
 @app.route('/logout')
 def logout():
+    """Faz um logout do usuário"""
     return render_template('index.html',p=2, msg=_("Logout com sucesso")), 401
 
 @auth.get_password
 def get_password(username):
+    """Retorna a senha"""
     return getInfo(username)
 
 @auth.hash_password
 def hash_pw(password):
+    """retorna o hash da senha"""
     return hashlib.md5(password.encode()).hexdigest()
 
 if __name__ == '__main__':
@@ -229,5 +243,6 @@ if __name__ == '__main__':
 
 @babel.localeselector
 def get_locale():
+    """utilizado pela biblioteca pybabel para tradução. Retorna a língua a ser traduzida"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
